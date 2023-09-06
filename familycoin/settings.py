@@ -131,7 +131,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> a697448 (Update 09/06/23)
 =======
 >>>>>>> a697448 (Update 09/06/23)
 =======
@@ -148,6 +151,7 @@ EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b665f2d (Update / settings)
 
@@ -156,6 +160,9 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
 >>>>>>> b665f2d (Update / settings)
+=======
+#xkjzzoqgotpxuulh parola app
+>>>>>>> a697448 (Update 09/06/23)
 =======
 #xkjzzoqgotpxuulh parola app
 >>>>>>> a697448 (Update 09/06/23)
