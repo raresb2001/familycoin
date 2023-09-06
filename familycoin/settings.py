@@ -130,7 +130,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> a697448 (Update 09/06/23)
 =======
 >>>>>>> a697448 (Update 09/06/23)
 AUTH_USER_MODEL = 'budget.FamilyMember'
@@ -143,12 +146,16 @@ EMAIL_HOST_USER = 'familycoin2001@gmail.com'
 EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
 >>>>>>> b665f2d (Update / settings)
+=======
+#xkjzzoqgotpxuulh parola app
+>>>>>>> a697448 (Update 09/06/23)
 =======
 #xkjzzoqgotpxuulh parola app
 >>>>>>> a697448 (Update 09/06/23)
