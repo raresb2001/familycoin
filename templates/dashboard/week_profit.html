@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Budget Week Profit {% endblock %}
+{% block content %}
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-md-6 offset-md-3">
+               <div>
+                   <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ previous }}"><</a>
+                   <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ next }}">></a>
+               </div>
+               <canvas id="myChart" width="400" height="250"></canvas>
+           </div>
+       </div>
+   </div>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script>
+       const ctx = document.getElementById('myChart');
+
+       new Chart(ctx, {
+           type: 'line',
+           data: {
+               labels: {{ labels_week_profit|safe }},
+               datasets: [{
+                   label: 'Week budget profit ',
+                   data: {{ budget_value|safe }},
+                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                   borderColor: 'rgba(75, 192, 192, 1)',
+                   borderWidth: 1
+               }]
+           },
+           options: {
+               scales: {
+                   x: {
+                       beginAtZero: true,
+                       ticks: {
+                           precision: 0
+                       }
+                   },
+                   y: {
+                       beginAtZero: true
+                   }
+               }
+           }
+       });
+
+   </script>
+
+{% endblock %}

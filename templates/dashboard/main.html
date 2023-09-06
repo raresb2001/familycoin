@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <br>
+        <div class="row">
+            <div class="col-md-5">
+                 <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Popular Categories</th>
+                        <th>Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in category_order %}
+                        <tr>
+                            <td>{{ category.category__name }}</td>
+                            <td>{{ category.total_value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        More details
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item"
+                               href="{% url 'day' %}">Day</a></li>
+                        <li><a class="dropdown-item"
+                               href="{% url 'week' %}">Week</a></li>
+                        <li><a class="dropdown-item"
+                               href="{% url 'month' %}">Month</a></li>
+                        <li><a class="dropdown-item"
+                               href="{% url 'year' %}">Year</a></li>
+                    </ul>
+                </div>
+                <canvas id="myChartTotalBudget" width="100" height="50"></canvas>
+                <a class="btn btn-secondary" href="{% url 'week-profit' %}">More details</a>
+                <canvas id="myChartWeekProfit" width=100" height="50"></canvas>
+            </div>
+            <div class="col-md-5">
+                <a class="btn btn-secondary" href="{% url 'week-average' %}">More details</a>
+                <canvas id="myChartWeekAverage" width="100" height="50"></canvas>
+                <a class="btn btn-secondary" href="{% url 'month-econrate' %}">More details</a>
+                <canvas id="myChartMonthEcon" width="100" height="50"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChartTotalBudget');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ chart.labels|safe }},
+                datasets: [{
+                    label: 'Total Week Budget',
+                    data: {{ chart.budget_value|safe }},
+                    backgroundColor: 'rgba(128, 0, 128, 0.6)',
+                    borderColor: 'rgba(128, 0, 128, 0.6)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        const ctx1 = document.getElementById('myChartWeekProfit');
+
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: {{ line.labels|safe }},
+                datasets: [{
+                    label: 'Week budget profit',
+                    data: {{ line.budget_value|safe }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        const ctx2 = document.getElementById('myChartWeekAverage');
+
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: {{ chart.labels|safe }},
+                datasets: [{
+                    label: 'Budget Week Average',
+                    data: {{ chart.budget_value2|safe }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <script>
+        const ctx3 = document.getElementById('myChartMonthEcon');
+
+        new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: {{ line_month.labels|safe }},
+                datasets: [{
+                    label: 'Economics Month Rate %',
+                    data: {{ line_month.budget_value2|safe }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+{% endblock %}
