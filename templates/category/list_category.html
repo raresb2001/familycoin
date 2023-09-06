@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} List of categories {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        {% for member in all_category %}
+                            {% if member.is_superuser %}
+                                <th><i class="bi bi-gear"></i> Actions</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tbody class="table-group-divider">
+                    {% for category in all_category %}
+                        <tr>
+                            <td>
+                                {% if category.name == "Taxes" %}
+                                    <i class="bi bi-currency-dollar"></i>
+                                {% elif category.name == "Personal Income" %}
+                                    <i class="bi bi-person"></i>
+                                {% elif category.name == "Personal Development" %}
+                                    <i class="bi bi-award"></i>
+                                {% elif category.name == "Business" %}
+                                    <i class="bi bi-building"></i>
+                                {% elif category.name == "Food" %}
+                                    <i class="bi bi-egg"></i>
+                                {% elif category.name == "HealthCare" %}
+                                    <i class="bi bi-heart"></i>
+                                {% elif category.name == "Donations" %}
+                                    <i class="bi bi-gift"></i>
+                                {% elif category.name == "Social Assistance" %}
+                                    <i class="bi bi-people"></i>
+                                {% elif category.name == "Housing" %}
+                                    <i class="bi bi-house-door"></i>
+                                {% elif category.name == "Transportation" %}
+                                    <i class="bi bi-truck"></i>
+                                {% elif category.name == "Insurance" %}
+                                    <i class="bi bi-shield"></i>
+                                {% elif category.name == "Travel" %}
+                                    <i class="bi bi-airplane"></i>
+                                {% elif category.name == "Education" %}
+                                    <i class="bi bi-book"></i>
+                                {% elif category.name == "Investments" %}
+                                    <i class="bi bi-graph-up"></i>
+                                {% else %}
+                                    <i class="default-icon-class"></i>
+                                {% endif %}
+                                {{ category.name }}
+                            </td>
+                        {% for member in all_category %}
+                            {% if member.is_superuser %}
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'update-category' category.id %}">Update</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'delete-category' category.id %}">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            {% endif %}
+                                {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

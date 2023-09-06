@@ -1,0 +1,128 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <img src=" {% static 'images/logo.png' %}" width="30" height="30"> FamilyCoin</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Homepage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Dashboard
+                        <i class="bi bi-house-door"></i></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Category <i class="fas fa-th"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+{#                        {% for member in all_members %}#}
+{#                            {% if member.is_superuser %}#}
+                                <li><a class="dropdown-item" href="{% url 'create-category' %}">Create Category</a></li>
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+                        <li><a class="dropdown-item" href="{% url 'list-category' %}">List of Categories</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Finances <i class="bi bi-cash"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'create-income' %}">Income/Expense</a></li>
+                        <li><a class="dropdown-item" href="{% url 'list-income' %}">List of Income/Expense</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Member <i class="bi bi-person"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'list-member' %}">List of Members</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Total Budget <i class="fas fa-money-bill-wave"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                                href="{% url 'year' %}">Year</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'month' %}">Month</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                                href="{% url 'week' %}">Week</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page"
+                                                href="{% url 'day' %}">Day</a>
+                    </ul>
+                </li>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Category Budget
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'day-category' %}">Day
+                                Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'week-category' %}">Week
+                                Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'month-category' %}">Month
+                                Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'year-category' %}">Year
+                                Category </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Budget/Category Statistics
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'week-average' %}">Week
+                                Average</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'week-profit' %}">Week
+                                Profit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'month-econrate' %}">Month
+                                Econrate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'week-category-average' %}">Week
+                                Category Average</a>
+                        </li>
+                    </ul>
+                    <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+                    </li>
+                <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'create-member' %}">Sign Up</a>
+                    </li>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

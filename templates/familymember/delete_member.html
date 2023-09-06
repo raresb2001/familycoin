@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete {% endblock %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center"> Delete - {{ member }}</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <h5 class="text-center"> Are you sure that you want to delete {{ member }}?</h5>
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-outline-danger">Da</button>
+                            <a href="{% url 'list-member' %}" class="btn btn-outline-secondary">No</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

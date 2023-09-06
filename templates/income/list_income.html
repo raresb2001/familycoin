@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} List of incomes {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date Time</th>
+                        <th>Category</th>
+                        <th>Value</th>
+                        <th>Family Member</th>
+                        <th>Type</th>
+                        <th> <i class="bi bi-gear"></i> Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for income in all_income %}
+                        <tr>
+                            <td>{{ income.name }}</td>
+                            <td>{{ income.date_time | date:'d-m-Y' }}</td>
+                            <td>{{ income.category }} </td>
+                            <td>{{ income.value }}</td>
+                            <td>{{ income.family_member }}</td>
+                            <td>{{ income.type }}</td>
+                         <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'update-income' income.id %}">Update</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'delete-income' income.id %}">Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

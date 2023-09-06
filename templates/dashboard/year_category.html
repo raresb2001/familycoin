@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Year Category Budget {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div>
+                   <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ previous }}"><</a>
+                   <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ next }}">></a>
+               </div>
+                <canvas id="myChart" width="400" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const data = {
+            labels: {{ labels_year|safe }},
+            datasets: [{
+                label: 'Category',
+                data: {{ budget_value|safe }},
+                backgroundColor: ['DarkBlue', 'DarkSlateGray', 'Indigo', 'DarkMagenta', 'Purple', 'MidnightBlue', 'DimGray', 'SlateGray',
+                    'Maroon', 'FireBrick', 'Navy', 'RebeccaPurple', 'DarkOliveGreen', 'SteelBlue'],
+                hoverOffset: 4
+            }]
+        };
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+        });
+
+    </script>
+
+{% endblock %}
