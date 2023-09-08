@@ -5,11 +5,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div>
-                   <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ previous }}"><</a>
-                   <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ next }}">></a>
-               </div>
-                <canvas id="myChart" width="400" height="250"></canvas>
+                <br>
+                <div class="card" style="width: 50rem;">
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ previous }}"><</a>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'year-category' %}?before={{ next }}">></a>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Yearly category budget</h5>
+                        <canvas id="myChart" width="400" height="250"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -20,8 +30,8 @@
             datasets: [{
                 label: 'Category',
                 data: {{ budget_value|safe }},
-                backgroundColor: ['DarkBlue', 'DarkSlateGray', 'Indigo', 'DarkMagenta', 'Purple', 'MidnightBlue', 'DimGray', 'SlateGray',
-                    'Maroon', 'FireBrick', 'Navy', 'RebeccaPurple', 'DarkOliveGreen', 'SteelBlue'],
+                backgroundColor: ['#000080', '#800020', '#228B22', '#800080', '#008080', '#DC143C',
+                    '#FFDB58', '#0000CD', '#8B0000', '#008000', '#EE82EE', '#40E0D0', '#FF4500', '#708090'],
                 hoverOffset: 4
             }]
         };

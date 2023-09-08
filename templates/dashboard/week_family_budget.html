@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Week Category Budget {% endblock %}
+{% block title %} Total Budget Week {% endblock %}
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -10,13 +10,14 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-category' %}?before={{ previous }}"><</a>
+                                <a class="btn btn-danger"
+                                   href="{% url 'week-family-budget' %}?before={{ previous }}"><</a>
                             </div>
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-category' %}?before={{ next }}">></a>
+                                <a class="btn btn-danger" href="{% url 'week-family-budget' %}?before={{ next }}">></a>
                             </div>
                         </div>
-                        <h5 class="card-title text-center">Weekly category budget</h5>
+                        <h5 class="card-title text-center">Total budget weekly family</h5>
                         <canvas id="myChart" width="400" height="250"></canvas>
                     </div>
                 </div>
@@ -26,10 +27,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const data = {
-            labels: {{ labels_week|safe }},
+            labels: {{ labels|safe }},
             datasets: [{
                 label: 'Category',
-                data: {{ budget_value|safe }},
+                data: {{ budget|safe }},
                 backgroundColor:['#000080', '#800020', '#228B22', '#800080', '#008080', '#DC143C',
                     '#FFDB58', '#0000CD', '#8B0000', '#008000', '#EE82EE', '#40E0D0', '#FF4500', '#708090'],
                 hoverOffset: 4
@@ -43,5 +44,6 @@
         });
 
     </script>
+
 
 {% endblock %}

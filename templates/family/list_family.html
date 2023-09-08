@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} List of members {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">ASDASD</div>
+                    <div class="card-body"></div>
+                    <h1>Alandala</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{#            <table class="table table-striped">#}
+{#                <thead class="thead-dark">#}
+{#                <tr>#}
+{#                    <th>Name</th>#}
+{#                    <th>Owner</th>#}
+{#                    <th>Members</th>#}
+{#                    <th>Actions</th>#}
+{#                </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% for family in all_family %}#}
+{#                        <tr>#}
+{#                            <td>{{ family.name }}</td>#}
+{#                            <td>{{ family.owner }}</td>#}
+{#                            <td>{{ family.members_str }}</td>#}
+{#                            <td>#}
+{#                                <div class="dropdown">#}
+{#                                    <button class="btn btn-secondary dropdown-toggle" type="button"#}
+{#                                            data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                                        Actions#}
+{#                                    </button>#}
+{#                                    <ul class="dropdown-menu">#}
+{#                                        <li><a class="dropdown-item" href="{% url 'update-family' family.id %}">Update</a></li>#}
+{#                                        <li><a class="dropdown-item" href="{% url 'delete-family' family.id %}">Delete</a></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                {% endfor %}#}
+{##}
+{#                </tbody>#}
+{#            </table>#}

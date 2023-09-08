@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import TextInput
 
-from budget.models import Category, FamilyMember, Income
+from budget.models import Category, FamilyMember, Income, Family
 
 
 class CategoryForm(forms.ModelForm):
@@ -40,6 +40,21 @@ class FamilyMemberForm(UserCreationForm):
             {'class': 'form-control', 'placeholder': 'Please re-enter your password'})
 
 
+class FamilyMemberUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = FamilyMember
+        fields = ['first_name', 'last_name', 'email', 'phone_number']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new first name'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new last name'}),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new email'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new phone number'}),
+        }
+
+
+
 class AuthenticationNewForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
@@ -66,4 +81,11 @@ class IncomeForm(forms.ModelForm):
             'date_time': TextInput(attrs={'class': 'form-control', 'type': 'date'}),
             'value': TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter a decimal value'}),
         }
+
+class FamilyForm(forms.ModelForm):
+
+    class Meta:
+        model = Family
+        fields = '__all__'
+
 

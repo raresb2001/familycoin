@@ -6,5 +6,11 @@
 }
 
 
+.card-body {
+    background-color: #ececec;
+}
 
+.card-header.text-center {
+    font-weight: bold;
+}
 

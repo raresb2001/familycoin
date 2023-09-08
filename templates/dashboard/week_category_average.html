@@ -5,11 +5,21 @@
    <div class="container-fluid">
        <div class="row">
            <div class="col-md-6 offset-md-3">
-               <div>
-                   <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ previous }}"><</a>
-                   <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ next }}">></a>
-               </div>
-               <canvas id="myChartWeekCategoryAverage" width="400" height="250"></canvas>
+               <br>
+                <div class="card" style="width: 50rem;">
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ previous }}"><</a>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ next }}">></a>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Average budget per weekly category</h5>
+                        <canvas id="myChartWeekCategoryAverage" width="400" height="250"></canvas>
+                    </div>
+                </div>
            </div>
        </div>
    </div>
@@ -24,7 +34,7 @@
                datasets: [{
                    label: 'Category Average',
                    data: {{ budget_value|safe }},
-                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                   backgroundColor: '#9fd3c7',
                    borderColor: 'rgba(75, 192, 192, 1)',
                    borderWidth: 1
                }]
