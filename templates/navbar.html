@@ -12,6 +12,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Homepage</a>
                 </li>
+                    {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">Dashboard
                         <i class="bi bi-house-door"></i></a>
@@ -71,7 +72,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Category Budget
+                        Category Budget<i class="bi bi-cash-coin"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-item">
@@ -95,7 +96,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Budget/Category Statistics
+                        Statistics<i class="bi bi-bar-chart"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="nav-item">
@@ -118,7 +119,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Create Family <i class="fa-solid fa-family"></i>
+                        Family <i class="bi bi-people"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'create-family' %}">Create Family</a></li>
@@ -126,6 +127,7 @@
                         <li><a class="dropdown-item" href="{% url 'week-family-budget' %}">Family Budget</a></li>
                     </ul>
                 </li>
+            {% endif %}
                 <li class="nav-item ml-auto">
                     {% if user.is_authenticated %}
                         <div class="ms-auto">

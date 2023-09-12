@@ -33,5 +33,6 @@ urlpatterns = [
     path('list_family/', views.FamilyListView.as_view(), name='list-family'),
     path('delete_family/<int:pk>/', views.FamilyDeteleView.as_view(), name='delete-family'),
     path('update_family/<int:pk>/', views.FamilyUpdateView.as_view(), name='update-family'),
+    path('detail_family/<int:pk>/', views.FamilyDetailView.as_view(), name='detail-family'),
     path('week_family_budget/', views.week_family_budget, name='week-family-budget'),
 ]

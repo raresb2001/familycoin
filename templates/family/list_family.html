@@ -1,51 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} List of members {% endblock %}
+{% block title %} List of families {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-header">ASDASD</div>
-                    <div class="card-body"></div>
-                    <h1>Alandala</h1>
+            {% for family in all_family %}
+                {% if family.owner == family_user %}
+                <div class="col-md-4 py-4">
+                    <div class="card row gx-2 gy-0">
+                        <div class="card-header text-center" style="font-size: 24px;">{{ family.name }}</div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-end">
+                                {# Poate implementam detail view #}
+                                <a class="btn btn-warning" href="{% url 'week-family-budget'  %}">
+                                    <i class="bi bi-info-circle-fill"></i></a>
+                                <a class="btn btn-info" href="{% url 'update-family' family.id %}"><i
+                                        class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-danger" href="{% url 'delete-family' family.id %}"><i
+                                        class="bi bi-trash"></i></a>
+                            </div>
+                            <h5>Head of the family: {{ family.owner }}</h5>
+                            <hr>
+                            <p>Members: {{ family.members_str }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
-
 {% endblock %}
-
-{#            <table class="table table-striped">#}
-{#                <thead class="thead-dark">#}
-{#                <tr>#}
-{#                    <th>Name</th>#}
-{#                    <th>Owner</th>#}
-{#                    <th>Members</th>#}
-{#                    <th>Actions</th>#}
-{#                </tr>#}
-{#                </thead>#}
-{#                <tbody>#}
-{#                    {% for family in all_family %}#}
-{#                        <tr>#}
-{#                            <td>{{ family.name }}</td>#}
-{#                            <td>{{ family.owner }}</td>#}
-{#                            <td>{{ family.members_str }}</td>#}
-{#                            <td>#}
-{#                                <div class="dropdown">#}
-{#                                    <button class="btn btn-secondary dropdown-toggle" type="button"#}
-{#                                            data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                                        Actions#}
-{#                                    </button>#}
-{#                                    <ul class="dropdown-menu">#}
-{#                                        <li><a class="dropdown-item" href="{% url 'update-family' family.id %}">Update</a></li>#}
-{#                                        <li><a class="dropdown-item" href="{% url 'delete-family' family.id %}">Delete</a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
-{#                            </td>#}
-{#                        </tr>#}
-{#                {% endfor %}#}
-{##}
-{#                </tbody>#}
-{#            </table>#}

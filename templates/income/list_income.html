@@ -20,6 +20,7 @@
                     </thead>
                     <tbody>
                     {% for income in all_income %}
+                        {% if income.family_member == familymember %}
                         <tr>
                             <td>{{ income.name }}</td>
                             <td>{{ income.date_time | date:'d-m-Y' }}</td>
@@ -42,6 +43,7 @@
                                 </div>
                             </td>
                         </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>

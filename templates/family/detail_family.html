@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Details - {{ invitation }} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card text-center">
+                    <div class="card-header">
+                        View details
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ family }}</h5>
+                        <p class="card-text"><strong>Title: </strong>{{ family.owner }}</p>
+                        <p class="card-text"><strong>Members: </strong>{{ family.members_str }}</p>
+                        <a href="{% url 'list-family' %}" class="btn btn-primary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

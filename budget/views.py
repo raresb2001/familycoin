@@ -7,7 +7,7 @@ from django.db.models import Sum, Avg, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import TemplateView, CreateView, ListView, DeleteView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, DeleteView, UpdateView, DetailView
 
 from budget.forms import CategoryForm, FamilyMemberForm, IncomeForm, FamilyForm, FamilyMemberUpdateForm
 from budget.models import Category, FamilyMember, Income, Family
@@ -35,7 +35,8 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
         line = generate_line_chart(labels_week, before, self.request)
         line_month = generate_line_chart(labels_month, before, self.request)
 
-        category_order = Income.objects.filter(family_member=self.request.user).values('category__name').annotate(total_value=Sum('value')).order_by('-total_value')
+        category_order = Income.objects.filter(family_member=self.request.user).values('category__name').annotate(
+            total_value=Sum('value')).order_by('-total_value')
         context['category_order'] = category_order
 
         context['chart'] = chart
@@ -103,11 +104,17 @@ class IncomeCreateView(LoginRequiredMixin, CreateView):
     form_class = IncomeForm
     success_url = reverse_lazy('list-income')
 
+
 # de adaugat request.user
 class IncomeListView(LoginRequiredMixin, ListView):
     template_name = 'income/list_income.html'
     model = Income
     context_object_name = 'all_income'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['familymember'] = self.request.user
+        return context
 
 
 class IncomeUpdateView(LoginRequiredMixin, UpdateView):
@@ -123,7 +130,7 @@ class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('list-income')
 
 
-class FamilyCreateView(CreateView):
+class FamilyCreateView(LoginRequiredMixin, CreateView):
     template_name = 'family/create_family.html'
     model = Family
     form_class = FamilyForm
@@ -135,10 +142,16 @@ class FamilyListView(ListView):
     model = Family
     context_object_name = 'all_family'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['family_user'] = self.request.user
+        return context
+
 class FamilyDeteleView(DeleteView):
     template_name = 'family/delete_family.html'
     model = Family
     success_url = reverse_lazy('list-family')
+
 
 class FamilyUpdateView(UpdateView):
     template_name = 'family/update_family.html'
@@ -150,9 +163,7 @@ def get_labels(start, delta):
     result = []
     now = start
     stop = start + delta
-    # print(f'generating from start={start} until stop={stop}')
     while now < stop:
-        # print(f'adding {now}, next is {now + relativedelta(days=1)}')
         result.append(now)
         now += relativedelta(days=1)
     return result
@@ -162,14 +173,23 @@ def get_values(labels, request):
     budget_value = []
     for label in labels:
         budget = Income.objects.filter(date_time__year=label.year, date_time__month=label.month,
-                                       date_time__day=label.day, family_member=request.user).aggregate(Sum('value'))['value__sum']
+                                       date_time__day=label.day, family_member=request.user).aggregate(Sum('value'))[
+            'value__sum']
         budget_value.append(float(budget) if budget is not None else 0)
     return budget_value
 
+def get_average_budget(labels, request):
+    budget_value = []
+    for label in labels:
+        budget = Income.objects.filter(date_time__year=label.year, date_time__month=label.month,
+                                       date_time__day=label.day, family_member=request.user).aggregate(Avg('value'))[
+            'value__avg']
+        budget_value.append(float(budget) if budget is not None else 0)
+    return budget_value
 
 def generate_bar_chart(labels, before, request):
     budget_value = get_values(labels, request)
-    budget_value2 = get_average(labels, request)
+    budget_value2 = get_average_budget(labels, request)
     labels = [str(l) for l in labels]
     return {
         'labels': labels,
@@ -193,7 +213,7 @@ def generate_line_chart(labels, before, request):
     }
 
 
-def get_average(current_date, request, filter_year=False, filter_month=False, filter_day=False):
+def get_average_category(current_date, request, filter_year=False, filter_month=False, filter_week=False, filter_day=False):
     labels = []
     budget_value = []
     categories = Category.objects.all()
@@ -206,7 +226,10 @@ def get_average(current_date, request, filter_year=False, filter_month=False, fi
             query = query & Q(date_time__month=current_date.month)
         if filter_day:
             query = query & Q(date_time__day=current_date.day)
-
+        if filter_week:
+            dt_from = current_date.replace(day=current_date.day - current_date.weekday())
+            dt_to = dt_from + relativedelta(weeks=1)
+            query = query & Q(date_time__lte=dt_to, date_time__gte=dt_from)
         budget = Income.objects.filter(query, family_member=request.user).aggregate(Avg('value'))['value__avg']
         budget_value.append(float(budget) if budget is not None else 0)
     return labels, budget_value
@@ -216,9 +239,11 @@ def get_profit(labels, request):
     budget_value = []
     for label in labels:
         budget_income = Income.objects.filter(date_time__year=label.year, date_time__month=label.month,
-                                              date_time__day=label.day, family_member=request.user,type='income').aggregate(Sum('value'))['value__sum']
+                                              date_time__day=label.day, family_member=request.user,
+                                              type='income').aggregate(Sum('value'))['value__sum']
         budget_expense = Income.objects.filter(date_time__year=label.year, date_time__month=label.month,
-                                               date_time__day=label.day, family_member=request.user, type='expense').aggregate(Sum('value'))['value__sum']
+                                               date_time__day=label.day, family_member=request.user,
+                                               type='expense').aggregate(Sum('value'))['value__sum']
         budget_income = budget_income if budget_income is not None else 0
         budget_expense = budget_expense if budget_expense is not None else 0
         budget = budget_income - budget_expense
@@ -312,11 +337,12 @@ def daily_chart_view(request):
     return render(request, 'dashboard/day.html', context_day)
 
 
-# de adaugat 3 parametrii si 3 if-uri pentru a diferentia (year, month, week)
+
 def get_values_category(current_date, request, filter_year=False, filter_month=False, filter_week=False,
                         filter_day=False):
     labels = []
     budget_value = []
+    current_date = current_date.replace(hour=0, minute=0, second=0, microsecond=0)
     categories = Category.objects.all()
     for category in categories:
         labels.append(category.name)
@@ -330,7 +356,7 @@ def get_values_category(current_date, request, filter_year=False, filter_month=F
         if filter_week:
             dt_from = current_date.replace(day=current_date.day - current_date.weekday())
             dt_to = dt_from + relativedelta(weeks=1)
-            query = query & Q(date_time__lte=dt_to, date_time__gte=dt_from)
+            query = query & Q(date_time__gte=dt_from, date_time__lte=dt_to)
         budget = Income.objects.filter(query, family_member=request.user).aggregate(Sum('value'))['value__sum']
         budget_value.append(float(budget) if budget is not None else 0)
     return labels, budget_value
@@ -341,7 +367,7 @@ def category_year_view(request):
     context_year = {}
     before = int(request.GET.get('before', 0))
 
-    current_date = datetime.now() + relativedelta(years=before)
+    current_date = timezone.now() + relativedelta(years=before)
     labels, budget_value = get_values_category(current_date, request, filter_year=True)
 
     labels_year = [str(l) for l in labels]
@@ -357,7 +383,7 @@ def category_month_view(request):
     context_month = {}
     before = int(request.GET.get('before', 0))
 
-    current_date = datetime.now() + relativedelta(months=before)
+    current_date = timezone.now() + relativedelta(months=before)
     labels, budget_value = get_values_category(current_date, request, filter_year=True, filter_month=True)
 
     labels_month = [str(l) for l in labels]
@@ -373,11 +399,11 @@ def category_week_view(request):
     context_week = {}
     before = int(request.GET.get('before', 0))
 
-    current_date = datetime.now() + relativedelta(weeks=before)
-    labels, budget_value = get_values_category(current_date, request, filter_year=True, filter_month=True,
+    current_date = timezone.now() + relativedelta(weeks=before)
+    labels, budget_value = get_values_category(current_date, request, filter_year=True,
                                                filter_week=True)
-
     labels_week = [str(l) for l in labels]
+    print(labels, budget_value)
     context_week['labels_week'] = labels_week
     context_week['next'] = min(0, before + 1)
     context_week['previous'] = before - 1
@@ -417,7 +443,7 @@ def week_average_view(request):
     current_date = timezone.now().date()
     current_date = current_date - timedelta(days=current_date.weekday())
     labels_week_average = get_labels(current_date + relativedelta(weeks=before), relativedelta(weeks=1))
-    budget_value = get_average(labels_week_average, request)
+    budget_value = get_average_budget(labels_week_average, request)
     labels_week_average = [str(l) for l in labels_week_average]
 
     context_week_average['labels_week_average'] = labels_week_average
@@ -467,7 +493,7 @@ def week_category_average(request):
     context_week = {}
     before = int(request.GET.get('before', 0))
 
-    current_date = datetime.now() + relativedelta(weeks=before)
+    current_date = timezone.now() + relativedelta(weeks=before)
     labels, budget_value = get_values_category(current_date, request, filter_year=True, filter_month=True,
                                                filter_week=True)
 
@@ -478,25 +504,15 @@ def week_category_average(request):
     context_week['budget_value'] = budget_value
     return render(request, 'dashboard/week_category_average.html', context_week)
 
-# Pentru a calcula bugetul pentru familii sau pentru familia din care fac parte
-# Folosesc un get_quey_set (asemanator cu get_values_categorii)
 
+#Blocker - Nu imi afiseaza cum trebuie bugetul per familie
 def week_family_budget(request):
     context = {}
     before = int(request.GET.get('before', 0))
 
-
     current_date = timezone.now() + relativedelta(weeks=before)
-    labels = []
-    budget_value = []
-    families = Family.objects.all()
-
-    for family in families:
-        labels.append(family.name)
-
-        budget = Income.objects.filter(date_time__year=current_date.year, date_time__month=current_date.month,
-                                       family_member__in=family.members.all()).aggregate(Sum('value'))['value__sum']
-        budget_value.append(float(budget) if budget is not None else 0)
+    labels, budget_value = get_values_category_family(current_date, request, filter_year=True,
+                                               filter_week=True)
 
     labels = [str(l) for l in labels]
     context['labels'] = labels
@@ -504,5 +520,33 @@ def week_family_budget(request):
     context['previous'] = before - 1
     context['budget'] = budget_value
 
-
     return render(request, 'dashboard/week_family_budget.html', context)
+
+#Detail View pe familie
+class FamilyDetailView(DetailView):
+    template_name = 'family/detail_family.html'
+    model = Family
+
+def get_values_category_family(current_date, request, filter_year=False, filter_month=False, filter_week=False,
+                        filter_day=False):
+    labels = []
+    budget_value = []
+    current_date = current_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    families = Family.objects.all()
+
+    for family in families:
+        labels.append(family.name)
+        query = Q(family_member__owner=family)
+        if filter_year:
+            query = query & Q(date_time__year=current_date.year)
+        if filter_month:
+            query = query & Q(date_time__month=current_date.month)
+        if filter_day:
+            query = query & Q(date_time__day=current_date.day)
+        if filter_week:
+            dt_from = current_date.replace(day=current_date.day - current_date.weekday())
+            dt_to = dt_from + relativedelta(weeks=1)
+            query = query & Q(date_time__gte=dt_from, date_time__lte=dt_to)
+        budget = Income.objects.filter(query, family_member__owner=family, family_member=request.user).aggregate(Sum('value'))['value__sum']
+        budget_value.append(float(budget) if budget is not None else 0)
+    return labels, budget_value
