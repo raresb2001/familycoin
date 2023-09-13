@@ -6,7 +6,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="card mt-5">
+                    {% if error_message %}
+                    <div class="alert alert-danger">
+                        {{ error_message }}
+                    </div>
+                {% endif %}
                     <div class="card-header bg-dark text-white">
                         <h3 class="text-center">Login</h3>
                     </div>

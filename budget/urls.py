@@ -1,6 +1,7 @@
 from django.urls import path
 
 from budget import views
+from budget.forms import AuthenticationNewForm
 
 urlpatterns = [
     path('', views.HomeTemplateView.as_view(), name='homepage'),
@@ -35,4 +36,5 @@ urlpatterns = [
     path('update_family/<int:pk>/', views.FamilyUpdateView.as_view(), name='update-family'),
     path('detail_family/<int:pk>/', views.FamilyDetailView.as_view(), name='detail-family'),
     path('week_family_budget/', views.week_family_budget, name='week-family-budget'),
+    path('login/', views.CustomLoginView.as_view(form_class=AuthenticationNewForm), name='login'),
 ]

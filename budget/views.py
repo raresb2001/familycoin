@@ -3,6 +3,8 @@ from datetime import timedelta, datetime
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Sum, Avg, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -72,11 +74,16 @@ class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('list-category')
 
 
-class FamilyMemberCreateView(CreateView):
+class FamilyMemberCreateView(SuccessMessageMixin, CreateView):
     template_name = 'familymember/create_member.html'
     model = FamilyMember
     form_class = FamilyMemberForm
     success_url = reverse_lazy('login')
+    success_message = "The member {t_name} {t_lastname} was created successfully."
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message.format(t_name=self.object.first_name, t_lastname=self.object.last_name)
+
 
 
 class FamilyMemberListView(LoginRequiredMixin, ListView):
@@ -163,6 +170,14 @@ class FamilyUpdateView(UpdateView):
     model = Family
     form_class = FamilyForm
     success_url = reverse_lazy('list-family')
+
+
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+
+    def form_invalid(self, form):
+        error_message = 'Incorrect username or password. Please try again.'
+        return render(self.request, self.template_name, {'error_message': error_message, 'form': form})
 
 
 def get_labels(start, delta):
@@ -538,20 +553,23 @@ class FamilyDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         family = context[self.context_object_name]
 
-        before = int(self.request.GET.get('before', 0))
+        before = int(self.request.GET.get('before', '') if self.request.GET.get('before', '') != '' else 0)
         current_date = timezone.now() + relativedelta(weeks=before)
 
-        labels, budget_value = get_values_per_family(family, current_date, self.request)
+        # labels, budget_value = get_values_per_family(family, current_date, self.request)
 
-        pie = generate_pie_chart(family, before, self.request, current_date)
+        pie = generate_pie_chart(family, before, self.request, current_date, filter_year=True, filter_month=True, filter_week=True)
         context['pie'] = pie
+        context['next'] = min(0, before + 1)
+        context['previous'] = before - 1
 
         return context
 
 
-def generate_pie_chart(family, before, request,current_date, filter_year=False, filter_month=False, filter_week=False,
+def generate_pie_chart(family, before, request, current_date, filter_year=False, filter_month=False, filter_week=False,
                        filter_day=False):
-    labels, budget_value = get_values_per_family(family, current_date, request, filter_year, filter_month, filter_week, filter_day)
+    labels, budget_value = get_values_per_family(family, current_date, request, filter_year, filter_month, filter_week,
+                                                 filter_day)
     labels = [str(l) for l in labels]
     return {
         'labels': labels,
@@ -585,8 +603,9 @@ def get_values_family_budget(current_date, request, filter_year=False, filter_mo
         budget_value.append(float(budget) if budget is not None else 0)
     return labels, budget_value
 
+
 def get_values_per_family(family, current_date, request, filter_year=False, filter_month=False, filter_week=False,
-                             filter_day=False):
+                          filter_day=False):
     labels = []
     budget_value = []
     current_date = current_date.replace(hour=0, minute=0, second=0, microsecond=0)

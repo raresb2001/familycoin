@@ -44,14 +44,8 @@
                             <li><a class="dropdown-item" href="{% url 'list-income' %}">List of Income/Expense</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="material-icons">person</i>Member
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'list-member' %}">List of Members</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'list-member' %}"><i class="material-icons">person</i>Members</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -138,7 +132,7 @@
                         <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
                     {% else %}
                         <a href="{% url 'login' %}" class="btn btn-outline-success">Login</a>
-                        <a href="{% url 'create-member' %}" class="btn btn-outline-secondary">Sign Up</a>
+                        <a href="{% url 'create-member' %}" class="btn btn-outline-info">Sign Up</a>
                     {% endif %}
                     </div>
                 </li>

@@ -28,12 +28,23 @@ html, body {
     text-shadow: 0 0.05rem 0.1rem rgba(187, 174, 188, 0.4);
     /*box-shadow: inset 0 0 5rem rgba(151, 149, 149, 0.2);*/
     margin: 0;
-    color: whitesmoke;
+    color: black;
     text-align: left;
-    background: #060608;
+    background: whitesmoke;
 
 }
 
+.col-md-6.offset-md-4 {
+    padding: 20px;
+}
+
+.col-md-6.offset-md-3 {
+    padding: 20px;
+}
+
+.col-md-4.offset-md-2 {
+    padding: 20px;
+}
 
 .material-icons {
     font-size: 20px;
