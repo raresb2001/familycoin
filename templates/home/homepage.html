@@ -20,14 +20,35 @@
             </div>
         </div>
     </header>
-    <main role="main" class="inner cover">
-        <div class="offset-md-4">
-            <h1 class="h2">Overview</h1>
-            <p>Screenshot si o scurta descriere</p>
+    <div class="offset-md-2">
+        <h4>Overview</h4>
+        <div id="carouselExample" class="carousel slide" style="max-width: 748px;">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <p>This is the app dashboard where u can see some statistics about your budget.</p>
+                    <img src="{% static 'images/Dashboard.png' %}" class="d-block w-100" width="748" height="350">
+                </div>
+                <div class="carousel-item">
+                    <p>This is how u can create families(you can select multiple members).</p>
+                    <img src="{% static 'images/createfamily.png' %}" class="d-block w-100" alt="Image 2" width="748"
+                         height="350">
+                </div>
+                <div class="carousel-item">
+                    <p>This is a new statistic about your budget.</p>
+                    <img src="{% static 'images/weekcategory.png' %}" class="d-block w-100" alt="Image 3" width="748"
+                         height="350">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-
-    </main>
-
+    </div>
     <footer class="mastfoot mt-auto">
         <div class="inner">
             <p>Created by Rares Bara</p>

@@ -10,10 +10,10 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ previous }}"><</a>
+                                <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ previous }}"><i class="material-icons">arrow_back</i></a>
                             </div>
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ next }}">></a>
+                                <a class="btn btn-danger" href="{% url 'week-profit' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
                             </div>
                         </div>
                         <h5 class="card-title text-center">Weekly budget profit</h5>

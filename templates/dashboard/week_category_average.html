@@ -6,18 +6,18 @@
        <div class="row">
            <div class="col-md-6 offset-md-3">
                <br>
-                <div class="card" style="width: 50rem;">
-                    <div class="card-body">
+                <div class="card" style="width: 43rem;">
+                    <div class="card-body" style="height: 48rem">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ previous }}"><</a>
+                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ previous }}"><i class="material-icons">arrow_back</i></a>
                             </div>
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ next }}">></a>
+                                <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
                             </div>
                         </div>
                         <h5 class="card-title text-center">Average budget per weekly category</h5>
-                        <canvas id="myChartWeekCategoryAverage" width="400" height="250"></canvas>
+                        <canvas id="myChartWeekCategoryAverage" width="400" height="150"></canvas>
                     </div>
                 </div>
            </div>

@@ -10,10 +10,10 @@
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'year' %}?before={{ previous }}"><</a>
+                                <a class="btn btn-danger" href="{% url 'year' %}?before={{ previous }}"><i class="material-icons">arrow_back</i></a>
                             </div>
                             <div class="col-auto">
-                                <a class="btn btn-danger" href="{% url 'year' %}?before={{ next }}">></a>
+                                <a class="btn btn-danger" href="{% url 'year' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
                             </div>
                             <h5 class="card-title text-center">Total budget yearly</h5>
                             <canvas id="myChart" width="400" height="250"></canvas>

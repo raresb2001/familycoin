@@ -1,42 +1,39 @@
 {% extends 'base.html' %}
-
-{% block title %} Details - {{ invitation }} {% endblock %}
+{% load static %}
+{% block title %} Details - {{ family }} {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <br><br>
-                <div class="card text-center">
-                    <div class="card-header">
-                        View details
-                    </div>
-                    <div class="row justify-content-between">
-                        <div class="col-auto">
-                            <a class="btn btn-danger"
-                               href="{% url 'detail-family' family.id %}?before={{ previous }}"><</a>
+       <div class="row">
+           <div class="col-md-6 offset-md-3">
+               <br>
+               <a href="{% url 'list-family' %}" class="btn btn-primary">Back</a>
+                <div class="card" style="width: 30rem;">
+                    <div class="card-body" style="height: 30rem;">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'detail-family' family.id %}?before={{ previous }}"><i class="material-icons">arrow_back</i></a>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'detail-family'  family.id %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <a class="btn btn-danger" href="{% url 'detail-family'  family.id %}?before={{ next }}">></a>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart" width="400" height="250"></canvas>
-                        <a href="{% url 'list-family' %}" class="btn btn-primary">Back</a>
+                        <h5 class="card-title text-center">Budget family</h5>
+                        <canvas id="myChart" width="300" height="200"></canvas>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+           </div>
+       </div>
+   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const data = {
-            labels: {{ pie.labels|safe }},
+            labels: {{ pie.labels|safe}},
             datasets: [{
                 label: '',
                 data: {{ pie.budget_value|safe }},
-                backgroundColor: ['#000080', '#800020', '#228B22', '#800080', '#008080', '#DC143C',
+                backgroundColor:['#000080', '#800020', '#228B22', '#800080', '#008080', '#DC143C',
                     '#FFDB58', '#0000CD', '#8B0000', '#008000', '#EE82EE', '#40E0D0', '#FF4500', '#708090'],
                 hoverOffset: 4
             }]
@@ -49,5 +46,4 @@
         });
 
     </script>
-
 {% endblock %}
