@@ -12,7 +12,7 @@
                     </div>
                     <form method="post" class="p-4">
                         {% csrf_token %}
-                        <div class="card-body">
+                        <div class="card-body custom_login">
                             <div class="form-group">
                                 {{ form.username.label_tag }}
                                 {{ form.username }}
@@ -22,12 +22,12 @@
                                 {{ form.password }}
                             </div>
                         </div>
-                        <div class="card-footer text-center">
+                        <div class="card-footer text-center bg-dark text-white">
                             <button type="submit" class="btn btn-success">Login</button>
                             <a class="btn btn-info" href="{% url 'create-member' %}">Signup</a>
                         </div>
                     </form>
-                    <div class="card-footer text-center">
+                    <div class="card-footer text-center bg-white text-dark">
                         <p class="mb-0">To access the website, please create an account.</p>
                     </div>
                 </div>

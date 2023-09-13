@@ -18,6 +18,7 @@
                     <tbody>
                     {% for member in all_members %}
                         {% if not member.is_superuser %}
+                            {% if member == user_member %}
                             <tr>
                                 <td>{{ member.first_name }} </td>
                                 <td>{{ member.last_name }}</td>
@@ -37,6 +38,7 @@
                                     </div>
                                 </td>
                             </tr>
+                                {% endif %}
                         {% endif %}
                     {% endfor %}
                     </tbody>

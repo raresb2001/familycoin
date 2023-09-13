@@ -21,56 +21,62 @@
                         <tr>
                             <td>
                                 {% if category.name == "Taxes" %}
-                                    <i class="bi bi-currency-dollar"></i>
+                                    <i class="material-icons">attach_money</i>
                                 {% elif category.name == "Personal Income" %}
-                                    <i class="bi bi-person"></i>
+                                    <i class="material-icons">person</i>
                                 {% elif category.name == "Personal Development" %}
-                                    <i class="bi bi-award"></i>
+                                    <i class="material-icons">emoji_events</i>
                                 {% elif category.name == "Business" %}
-                                    <i class="bi bi-building"></i>
+                                    <i class="material-icons">business</i>
                                 {% elif category.name == "Food" %}
-                                    <i class="bi bi-egg"></i>
+                                    <i class="material-icons">restaurant</i>
                                 {% elif category.name == "HealthCare" %}
-                                    <i class="bi bi-heart"></i>
+                                    <i class="material-icons">favorite</i>
                                 {% elif category.name == "Donations" %}
-                                    <i class="bi bi-gift"></i>
+                                    <i class="material-icons">redeem</i>
                                 {% elif category.name == "Social Assistance" %}
-                                    <i class="bi bi-people"></i>
+                                    <i class="material-icons">group</i>
                                 {% elif category.name == "Housing" %}
-                                    <i class="bi bi-house-door"></i>
+                                    <i class="material-icons">home</i>
                                 {% elif category.name == "Transportation" %}
-                                    <i class="bi bi-truck"></i>
+                                    <i class="material-icons">directions_car</i>
                                 {% elif category.name == "Insurance" %}
-                                    <i class="bi bi-shield"></i>
+                                    <i class="material-icons">security</i>
                                 {% elif category.name == "Travel" %}
-                                    <i class="bi bi-airplane"></i>
+                                    <i class="material-icons">flight</i>
                                 {% elif category.name == "Education" %}
-                                    <i class="bi bi-book"></i>
+                                    <i class="material-icons">school</i>
                                 {% elif category.name == "Investments" %}
-                                    <i class="bi bi-graph-up"></i>
+                                    <i class="material-icons">trending_up</i>
+                                {% elif category.name == "Debt Payments" %}
+                                    <i class="material-icons">credit_card</i>
+                                {% elif category.name == "Entertainment" %}
+                                    <i class="material-icons">movie</i>
+                                {% elif category.name == "Subscriptions" %}
+                                    <i class="material-icons">subscriptions</i>
                                 {% else %}
                                     <i class="default-icon-class"></i>
                                 {% endif %}
                                 {{ category.name }}
                             </td>
-                        {% for member in all_category %}
-                            {% if member.is_superuser %}
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Actions
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item"
-                                               href="{% url 'update-category' category.id %}">Update</a></li>
-                                        <li><a class="dropdown-item"
-                                               href="{% url 'delete-category' category.id %}">Delete</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                            {% endif %}
-                                {% endfor %}
+                            {% for member in all_category %}
+                                {% if member.is_superuser %}
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                Actions
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item"
+                                                       href="{% url 'update-category' category.id %}">Update</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="{% url 'delete-category' category.id %}">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                     </tbody>

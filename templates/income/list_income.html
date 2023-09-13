@@ -5,50 +5,28 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Name</th>
-                        <th>Date Time</th>
-                        <th>Category</th>
-                        <th>Value</th>
-                        <th>Family Member</th>
-                        <th>Type</th>
-                        <th> <i class="bi bi-gear"></i> Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for income in all_income %}
-                        {% if income.family_member == familymember %}
-                        <tr>
-                            <td>{{ income.name }}</td>
-                            <td>{{ income.date_time | date:'d-m-Y' }}</td>
-                            <td>{{ income.category }} </td>
-                            <td>{{ income.value }}</td>
-                            <td>{{ income.family_member }}</td>
-                            <td>{{ income.type }}</td>
-                         <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        Actions
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item"
-                                               href="{% url 'update-income' income.id %}">Update</a></li>
-                                        <li><a class="dropdown-item"
-                                               href="{% url 'delete-income' income.id %}">Delete</a></li>
-                                    </ul>
+            {% for income in all_income %}
+                    <div class="col-md-4 py-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">{{ income.name }}</h5>
+                                    <div>
+                                        <a class="btn btn-info btn-sm" href="{% url 'update-income' income.id %}"><i class="material-icons">update</i></a>
+                                        <a class="btn btn-danger btn-sm" href="{% url 'delete-income' income.id %}"><i class="material-icons">delete</i></a>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                                <p class="card-text">Date: {{ income.date_time | date:'d-m-Y' }}</p>
+                                <p class="card-text">Category: {{ income.category }}</p>
+                                <p class="card-text">Value: {{ income.value }}</p>
+                                <p class="card-text">Family Member: {{ income.family_member }}</p>
+                                <p class="card-text">Type: {{ income.type }}</p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
         </div>
     </div>
+
 
 {% endblock %}

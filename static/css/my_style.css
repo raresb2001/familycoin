@@ -10,6 +10,10 @@
     background-color: #ececec;
 }
 
+.custom_login {
+    background-color: white;
+}
+
 .card-header {
    background-color: #EEF3E2;
 }
@@ -38,5 +42,7 @@ html, body {
 
 }
 
-
+.material-icons {
+    font-size: 20px;
+}
 
