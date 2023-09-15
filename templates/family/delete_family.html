@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %} Update {% endblock %}
+{% block title %} Delete - {{ family }} {% endblock %}
+
 
 {% block content %}
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="text-center">Update {{ familymember }}</h3>
+                        <h3 class="text-center"> Delete family {{ family.name }}</h3>
                     </div>
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post">
                         {% csrf_token %}
                         <div class="card-body">
-                            {{ form.as_p }}
+                            <h5 class="text-center"> Are you sure that you want to delete the family {{ family.name }}?</h5>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-outline-danger">Update</button>
+                            <button type="submit" class="btn btn-outline-danger">Yes</button>
+                            <a href="{% url 'list-family' %}" class="btn btn-outline-secondary">No</a>
                         </div>
                     </form>
                 </div>

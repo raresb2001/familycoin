@@ -4,12 +4,21 @@
 {% block content %}
    <div class="container-fluid">
        <div class="row">
-           <div class="col-md-6 offset-md-3">
-               <div>
-                   <a class="btn btn-danger" href="{% url 'month-econrate' %}?before={{ previous }}"><</a>
-                   <a class="btn btn-danger" href="{% url 'month-econrate' %}?before={{ next }}">></a>
-               </div>
-               <canvas id="myChart" width="400" height="250"></canvas>
+           <div class="col-md-4 offset-md-2">
+                <div class="card" style="width: 700px; height: 500px;">
+                    <div class="card-body">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'month-econrate' %}?before={{ previous }}"><i class="material-icons">arrow_back</i></a>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-danger" href="{% url 'month-econrate' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
+                            </div>
+                        </div>
+                        <h5 class="card-title text-center">Monthly budget savings rate</h5>
+                        <canvas id="myChart" width="400" height="250"></canvas>
+                    </div>
+                </div>
            </div>
        </div>
    </div>
@@ -24,8 +33,8 @@
                datasets: [{
                    label: 'Rate %',
                    data: {{ budget_value|safe }},
-                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                   borderColor: 'rgba(75, 192, 192, 1)',
+                   backgroundColor: '#9fd3c7',
+                   borderColor: 'black',
                    borderWidth: 1
                }]
            },

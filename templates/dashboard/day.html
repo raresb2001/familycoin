@@ -2,44 +2,49 @@
 {% load static %}
 {% block title %} Total Budget Day {% endblock %}
 {% block content %}
-   <div class="container-fluid">
-       <div class="row">
-           <div class="col-md-6 offset-md-3">
-               <canvas id="myChart" width="400" height="250"></canvas>
-           </div>
-       </div>
-   </div>
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script>
-       const ctx = document.getElementById('myChart');
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 offset-md-4">
+                <div class="card" style="width: 500px; height: 400px;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Total budget daily</h5>
+                        <canvas id="myChart" width="400" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
 
-       new Chart(ctx, {
-           type: 'bar',
-           data: {
-               labels: {{ labels_day|safe }},
-               datasets: [{
-                   label: 'Budget',
-                   data: {{ budget_value|safe }},
-                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                   borderColor: 'rgba(75, 192, 192, 1)',
-                   borderWidth: 1
-               }]
-           },
-           options: {
-               scales: {
-                   x: {
-                       beginAtZero: true,
-                       ticks: {
-                           precision: 0
-                       }
-                   },
-                   y: {
-                       beginAtZero: true
-                   }
-               }
-           }
-       });
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ labels_day|safe }},
+                datasets: [{
+                    label: 'Budget',
+                    data: {{ budget_value|safe }},
+                    backgroundColor: '#9fd3c7',
+                    borderColor: '#a2a8d3',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
 
-   </script>
+    </script>
 
 {% endblock %}

@@ -6,5 +6,51 @@
 }
 
 
+.card-body {
+    background-color: #ececec;
+}
 
+.custom_login {
+    background-color: white;
+}
 
+.card-header {
+   background-color: #EEF3E2;
+}
+
+.text-center {
+    text-align: center;
+}
+
+html, body {
+    height: auto;
+    display: block;
+    text-shadow: 0 0.05rem 0.1rem rgba(187, 174, 188, 0.4);
+    /*box-shadow: inset 0 0 5rem rgba(151, 149, 149, 0.2);*/
+    margin: 0;
+    color: black;
+    text-align: left;
+    background: whitesmoke;
+
+}
+
+.col-md-6.offset-md-4 {
+    padding: 20px;
+}
+
+.col-md-6.offset-md-3 {
+    padding: 20px;
+}
+
+.col-md-4.offset-md-2 {
+    padding: 20px;
+}
+
+.material-icons {
+    font-size: 20px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: darkgrey;
+}

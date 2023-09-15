@@ -6,51 +6,80 @@
         <br>
         <div class="row">
             <div class="col-md-5">
-                 <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Popular Categories</th>
-                        <th>Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for category in category_order %}
-                        <tr>
-                            <td>{{ category.category__name }}</td>
-                            <td>{{ category.total_value }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        More details
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item"
-                               href="{% url 'day' %}">Day</a></li>
-                        <li><a class="dropdown-item"
-                               href="{% url 'week' %}">Week</a></li>
-                        <li><a class="dropdown-item"
-                               href="{% url 'month' %}">Month</a></li>
-                        <li><a class="dropdown-item"
-                               href="{% url 'year' %}">Year</a></li>
-                    </ul>
+                <div class="card">
+                    <div class="card-header text-center">
+                        Popular Categories
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>Categories</th>
+                                <th>Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for category in category_order %}
+                                <tr>
+                                    <td>{{ category.category__name }}</td>
+                                    <td>{{ category.total_value }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <canvas id="myChartTotalBudget" width="100" height="50"></canvas>
-                <a class="btn btn-secondary" href="{% url 'week-profit' %}">More details</a>
-                <canvas id="myChartWeekProfit" width=100" height="50"></canvas>
+                <br>
+                <div class="card">
+                    <div class="card-header text-center">Total budget weekly</div>
+                    <div class="card-body">
+                        <div class="dropdown">
+                            <button class="btn btn-dark dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                More details
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                       href="{% url 'day' %}">Daily</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'week' %}">Weekly</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'month' %}">Monthly</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{% url 'year' %}">Yearly</a></li>
+                            </ul>
+                        </div>
+                        <canvas id="myChartTotalBudget" width="100" height="50"></canvas>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header text-center">Weekly budget profit</div>
+                    <div class="card-body">
+                        <a class="btn btn-dark" href="{% url 'week-profit' %}">More details</a>
+                        <canvas id="myChartWeekProfit" width=100" height="50"></canvas>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
-                <a class="btn btn-secondary" href="{% url 'week-average' %}">More details</a>
-                <canvas id="myChartWeekAverage" width="100" height="50"></canvas>
-                <a class="btn btn-secondary" href="{% url 'month-econrate' %}">More details</a>
-                <canvas id="myChartMonthEcon" width="100" height="50"></canvas>
+                <div class="card">
+                    <div class="card-header text-center">Average budget weekly</div>
+                    <div class="card-body">
+                        <a class="btn btn-dark" href="{% url 'week-average' %}">More details</a>
+                        <canvas id="myChartWeekAverage" width="100" height="50"></canvas>
+                    </div>
+                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header text-center">Monthly budget savings rate</div>
+                    <div class="card-body">
+                        <a class="btn btn-dark" href="{% url 'month-econrate' %}">More details</a>
+                        <canvas id="myChartMonthEcon" width="100" height="50"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -61,10 +90,10 @@
             data: {
                 labels: {{ chart.labels|safe }},
                 datasets: [{
-                    label: 'Total Week Budget',
+                    label: 'Budget',
                     data: {{ chart.budget_value|safe }},
-                    backgroundColor: 'rgba(128, 0, 128, 0.6)',
-                    borderColor: 'rgba(128, 0, 128, 0.6)',
+                    backgroundColor: '#9fd3c7',
+                    borderColor: '#a2a8d3',
                     borderWidth: 1
                 }]
             },
@@ -93,9 +122,9 @@
             data: {
                 labels: {{ line.labels|safe }},
                 datasets: [{
-                    label: 'Week budget profit',
+                    label: 'Budget',
                     data: {{ line.budget_value|safe }},
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: '#9fd3c7',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                 }]
@@ -125,10 +154,10 @@
             data: {
                 labels: {{ chart.labels|safe }},
                 datasets: [{
-                    label: 'Budget Week Average',
+                    label: 'Budget',
                     data: {{ chart.budget_value2|safe }},
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: '#9fd3c7',
+                    borderColor: '#a2a8d3',
                     borderWidth: 1
                 }]
             },
@@ -157,10 +186,10 @@
             data: {
                 labels: {{ line_month.labels|safe }},
                 datasets: [{
-                    label: 'Economics Month Rate %',
+                    label: 'Rate %',
                     data: {{ line_month.budget_value2|safe }},
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: '#9fd3c7',
+                    borderColor: 'black',
                     borderWidth: 1
                 }]
             },

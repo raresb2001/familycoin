@@ -1,46 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} List of members {% endblock %}
 
 {% block content %}
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Phone Number</th>
-                        <th>Actions</th>
-                    </tr>
-                    <tbody>
-                    {% for member in all_members %}
-                        {% if not member.is_superuser %}
-                            <tr>
-                                <td>{{ member.first_name }} </td>
-                                <td>{{ member.last_name }}</td>
-                                <td>{{ member.phone_number }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                            more actions
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item"
-                                                   href="{% url 'update-member' member.id %}">Update</a></li>
-                                            <li><a class="dropdown-item"
-                                                   href="{% url 'delete-member' member.id %}">Delete</a></li>
-                                        </ul>
+        {% for member in all_members %}
+                {% if not member.is_superuser %}
+                    {% if member == user_member %}
+                        <div class="col-md-4 py-4">
+                            <div class="card row gx-2 gy-0">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+                                        <div>
+                                            <a class="btn btn-info btn-sm" href="{% url 'update-member' member.id %}"><i
+                                                    class="material-icons">update</i></a>
+                                            <a class="btn btn-danger btn-sm" href="{% url 'delete-member' member.id %}"><i
+                                                    class="material-icons">delete</i></a>
+                                        </div>
                                     </div>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                                    <p>Phone number: {{ member.phone_number }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+        {% endfor %}
         </div>
     </div>
 

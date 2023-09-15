@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Sign up {% endblock %}
+{% block title %} Create Family {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -9,15 +9,15 @@
                 <br> <br>
                 <div class="card">
                     <div class="card-header bg-dark text-white">
-                        <h3 class="text-center">Create a new member</h3>
+                        <h3 class="text-center">Create a new family</h3>
                     </div>
                     <form method="post">
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form.as_p }}
                         </div>
-                        <div class="card-footer text-center bg-dark text-white">
-                            <button type="submit" class="btn btn-outline-success">Confirm</button>
+                        <div class="card-footer bg-dark text-white text-center">
+                            <button type="submit" class="btn btn-success">Confirm</button>
                         </div>
                     </form>
                 </div>

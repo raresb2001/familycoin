@@ -107,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Europe/Bucharest"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -120,8 +120,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR), 'static')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 
 # Default primary key field type
@@ -137,4 +137,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'familycoin2001@gmail.com'
 EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
 
-#xkjzzoqgotpxuulh parola app
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/login/'
