@@ -140,7 +140,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'familycoin2001@gmail.com'
 EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
 
-#xkjzzoqgotpxuulh parola app
+
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
