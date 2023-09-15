@@ -152,6 +152,9 @@ EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b665f2d (Update / settings)
 =======
 >>>>>>> b665f2d (Update / settings)
 
