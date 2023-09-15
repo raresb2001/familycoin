@@ -123,3 +123,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+<<<<<<< HEAD
+=======
+AUTH_USER_MODEL = 'budget.FamilyMember'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'familycoin2001@gmail.com'
+EMAIL_HOST_PASSWORD = 'xkjzzoqgotpxuulh'
+
+
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/login/'
+>>>>>>> b665f2d (Update / settings)
