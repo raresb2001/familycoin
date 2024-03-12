@@ -17,10 +17,10 @@
 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}"><i class="material-icons">home</i>Dashboard</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}"><i class="material-symbols-outlined">home</i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <li><a class="nav-link" href="{% url 'list-category' %}"><i class="material-icons">category</i>Categories</a></li>
+                        <li><a class="nav-link" href="{% url 'list-category' %}"><i class="material-symbols-outlined">category</i>Categories</a></li>
 
                     <ul class="dropdown-menu">
                             {% for member in all_members %}
@@ -35,7 +35,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="material-icons">monetization_on</i>Finances
+                            <span class="material-symbols-outlined">finance</span> Finances
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'create-income' %}">Income/Expense</a></li>
@@ -43,12 +43,12 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'list-member' %}"><i class="material-icons">person</i>Members</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'list-member' %}"><i class="material-symbols-outlined">person</i> Members</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="material-icons">attach_money</i>Total Budget
+                            <span class="material-symbols-outlined">account_balance_wallet</span> Total Budget
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item"><a class="nav-link active" aria-current="page"
@@ -68,7 +68,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="material-icons">attach_money</i>Category Budget
+                            <span class="material-symbols-outlined">category</span> Category Budget
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
@@ -92,7 +92,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="material-icons">analytics</i>Statistics
+                            <i class="material-symbols-outlined">analytics</i>Statistics
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
@@ -115,12 +115,12 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="material-icons">diversity_1</i>Family
+                            <i class="material-symbols-outlined">diversity_1</i>Family
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'create-family' %}">Create Family</a></li>
                             <li><a class="dropdown-item" href="{% url 'list-family' %}">List Family</a></li>
-                            <li><a class="dropdown-item" href="{% url 'week-family-budget' %}">Family Budget</a></li>
+                            <li><a class="dropdown-item" href="{% url 'family-monthly-expenses' %}">Family Monthly Expenses</a></li>
                         </ul>
                     </li>
                 {% endif %}

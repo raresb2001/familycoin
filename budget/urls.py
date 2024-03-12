@@ -35,6 +35,6 @@ urlpatterns = [
     path('delete_family/<int:pk>/', views.FamilyDeteleView.as_view(), name='delete-family'),
     path('update_family/<int:pk>/', views.FamilyUpdateView.as_view(), name='update-family'),
     path('detail_family/<int:pk>/', views.FamilyDetailView.as_view(), name='detail-family'),
-    path('week_family_budget/', views.week_family_budget, name='week-family-budget'),
+    path('family_monthly_expenses/', views.family_monthly_expenses, name='family-monthly-expenses'),
     path('login/', views.CustomLoginView.as_view(form_class=AuthenticationNewForm), name='login'),
 ]

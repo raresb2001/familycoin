@@ -15,7 +15,7 @@
                                 <a class="btn btn-danger" href="{% url 'week-category-average' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
                             </div>
                         </div>
-                        <h5 class="card-title text-center">Average budget per weekly category</h5>
+                        <h5 class="card-title text-center">Weekly average budget per category in <span class="material-symbols-outlined">euro_symbol</span></h5>
                         <canvas id="myChartWeekCategoryAverage" width="400" height="150"></canvas>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
            data: {
                labels: {{ labels_week|safe }},
                datasets: [{
-                   label: 'Category Average',
+                   label: 'Budget',
                    data: {{ budget_value|safe }},
                    backgroundColor: '#9fd3c7',
                    borderColor: 'rgba(75, 192, 192, 1)',

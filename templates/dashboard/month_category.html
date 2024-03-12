@@ -15,7 +15,7 @@
                                 <a class="btn btn-danger" href="{% url 'month-category' %}?before={{ next }}"><i class="material-icons">arrow_forward</i></a>
                             </div>
                         </div>
-                        <h5 class="card-title text-center">Monthly category budget</h5>
+                        <h5 class="card-title text-center">Monthly category budget in <span class="material-symbols-outlined">euro_symbol</span></h5>
                         <canvas id="myChart" width="400" height="250"></canvas>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
         const data = {
             labels: {{ labels_month|safe }},
             datasets: [{
-                label: 'Category',
+                label: 'Budget',
                 data: {{ budget_value|safe }},
                 backgroundColor: ['#000080', '#800020', '#228B22', '#800080', '#008080', '#DC143C',
                     '#FFDB58', '#0000CD', '#8B0000', '#008000', '#EE82EE', '#40E0D0', '#FF4500', '#708090'],
