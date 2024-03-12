@@ -7,10 +7,9 @@
     <div class="container-fluid">
         <div class="row">
             {% for family in all_family %}
-                {% if family.owner == family_user %}
                     <div class="col-md-4 py-4">
                         <div class="card row gx-2 gy-0">
-                            <div class="card-header text-center" style="font-size: 24px;">{{ family.name }}</div>
+                            <div class="card-header bg-dark text-white text-center" style="font-size: 24px;">{{ family.name }}</div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-end">
                                     {# Poate implementam detail view #}
@@ -27,7 +26,6 @@
                             </div>
                         </div>
                     </div>
-                {% endif %}
             {% endfor %}
         </div>
     </div>

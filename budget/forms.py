@@ -18,7 +18,7 @@ class CategoryForm(forms.ModelForm):
 class FamilyMemberForm(UserCreationForm):
     class Meta:
         model = FamilyMember
-        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number']
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'type']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -44,13 +44,14 @@ class FamilyMemberUpdateForm(forms.ModelForm):
 
     class Meta:
         model = FamilyMember
-        fields = ['first_name', 'last_name', 'email', 'phone_number']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'type']
 
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new first name'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new last name'}),
             'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new email'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Please enter your new phone number'}),
+            'type': forms.Select(choices=FamilyMember.SOURCE_TYPE, attrs={'class': 'form-control'}),
         }
 
 

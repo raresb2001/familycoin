@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header text-center">
+                    <div class="card-header bg-dark text-white">
                         Popular Categories
                     </div>
                     <div class="card-body">
@@ -22,7 +22,7 @@
                             {% for category in category_order %}
                                 <tr>
                                     <td>{{ category.category__name }}</td>
-                                    <td>{{ category.total_value }}</td>
+                                    <td>{{ category.total_value }}<span class="material-symbols-outlined">euro_symbol</span></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -31,7 +31,7 @@
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header text-center">Total budget weekly</div>
+                    <div class="card-header bg-dark text-white">Total budget weekly</div>
                     <div class="card-body">
                         <div class="dropdown">
                             <button class="btn btn-dark dropdown-toggle" type="button"
@@ -54,7 +54,7 @@
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header text-center">Weekly budget profit</div>
+                    <div class="card-header bg-dark text-white">Weekly budget profit</div>
                     <div class="card-body">
                         <a class="btn btn-dark" href="{% url 'week-profit' %}">More details</a>
                         <canvas id="myChartWeekProfit" width=100" height="50"></canvas>
@@ -63,7 +63,7 @@
             </div>
             <div class="col-md-5">
                 <div class="card">
-                    <div class="card-header text-center">Average budget weekly</div>
+                    <div class="card-header bg-dark text-white">Average budget weekly</div>
                     <div class="card-body">
                         <a class="btn btn-dark" href="{% url 'week-average' %}">More details</a>
                         <canvas id="myChartWeekAverage" width="100" height="50"></canvas>
@@ -71,7 +71,7 @@
                 </div>
                 <br>
                 <div class="card">
-                    <div class="card-header text-center">Monthly budget savings rate</div>
+                    <div class="card-header bg-dark text-white">Monthly budget savings rate</div>
                     <div class="card-body">
                         <a class="btn btn-dark" href="{% url 'month-econrate' %}">More details</a>
                         <canvas id="myChartMonthEcon" width="100" height="50"></canvas>

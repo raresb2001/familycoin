@@ -15,7 +15,7 @@
 }
 
 .card-header {
-   background-color: #EEF3E2;
+    background-color: #EEF3E2;
 }
 
 .text-center {
@@ -54,3 +54,10 @@ html, body {
 .carousel-control-next-icon {
     background-color: darkgrey;
 }
+
+.material-symbols-outlined {
+    position: relative;
+    top: 3px; /* Pozitionez simbolul euro la afisarea datelor din tabele mai jos */
+}
+
+
