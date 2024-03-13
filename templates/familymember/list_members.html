@@ -5,8 +5,8 @@
 
 {% block content %}
     <div class="container-fluid">
-        {% for family in all_families %}
-            <div class="row">
+        <div class="row">
+            {% for family in all_families %}
                 {% for member in family.members.all %}
                     <div class="col-md-4 py-4">
                         <div class="card row gx-2 gy-0">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

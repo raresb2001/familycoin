@@ -570,5 +570,4 @@ def family_monthly_expenses(request):
 
     return render(request, 'dashboard/monthly_expenses.html', {'total_expenses': total_expenses})
 
-#De adaugat categorii specifice pentru fiecare persoana din familie. De exemplu la copil sa adaug ceva ce ar fi specific lui
-#Si sa afisez la membrii familia din care fac parte
+
