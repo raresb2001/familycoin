@@ -14,12 +14,9 @@ class FamilyMember(AbstractUser):
 
     phone_number = models.CharField(max_length=25)
     type = models.CharField(max_length=32, choices=SOURCE_TYPE, default='Parent')
+    age = models.IntegerField(null=True, blank=True)
 
-    def get_family_name(self):
-        membership = Membership.objects.filter(member=self).first()
-        if membership:
-            return membership.family.name
-        return None
+
 
 class Category(models.Model):
     name = models.CharField(max_length=40)
@@ -36,7 +33,7 @@ class Income(models.Model):
 
     name = models.CharField(max_length=20)
     date_time = models.DateTimeField(default=timezone.now)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True) #specifică că atunci când o categorie este ștearsă, obiectele asociate din clasa curentă vor fi, de asemenea, șterse, iar null=True permite ca acest câmp să fie lăsat gol.
     value = models.DecimalField(max_digits=10, decimal_places=2)
     family_member = models.ForeignKey(FamilyMember, on_delete=models.CASCADE, null=True)
     type = models.CharField(max_length=32, choices=SOURCE_TYPE)
@@ -58,9 +55,4 @@ class Family(models.Model):
         return f'{", ".join([member.first_name for member in self.members.all()])}'
 
 
-class Membership(models.Model):
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    member = models.ForeignKey(FamilyMember, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.member.first_name} {self.member.last_name} - {self.family.name}'
+#sa sterg clasas membership si sa afisez doar membrul curent si informatii despre el

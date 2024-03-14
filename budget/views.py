@@ -91,13 +91,10 @@ class FamilyMemberListView(LoginRequiredMixin, ListView):
     model = FamilyMember
     context_object_name = 'all_members'
 
-    def get_queryset(self):
-        return FamilyMember.objects.all() #Query pentru a obtine toti membrii
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['all_families'] = Family.objects.all()
-        return context  #Query pentru a obtine toate familiile
+        context['user_member'] = self.request.user
+        return context
 
 
 class FamilyMemberUpdateView(LoginRequiredMixin, UpdateView):

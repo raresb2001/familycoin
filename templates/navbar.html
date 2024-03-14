@@ -42,9 +42,6 @@
                             <li><a class="dropdown-item" href="{% url 'list-income' %}">List of Income/Expense</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'list-member' %}"><i class="material-symbols-outlined">person</i> Members</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -122,6 +119,9 @@
                             <li><a class="dropdown-item" href="{% url 'list-family' %}">List Family</a></li>
                             <li><a class="dropdown-item" href="{% url 'family-monthly-expenses' %}">Family Monthly Expenses</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'list-member' %}"><i class="material-symbols-outlined">person</i> Profile info</a>
                     </li>
                 {% endif %}
                 <li class="nav-item ml-auto">

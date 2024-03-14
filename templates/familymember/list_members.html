@@ -4,32 +4,35 @@
 {% block title %} List of members {% endblock %}
 
 {% block content %}
+
     <div class="container-fluid">
         <div class="row">
-            {% for family in all_families %}
-                {% for member in family.members.all %}
-                    <div class="col-md-4 py-4">
-                        <div class="card row gx-2 gy-0">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
-                                    <div>
-                                        <a class="btn btn-info btn-sm" href="{% url 'update-member' member.id %}">
-                                            <i class="material-icons">update</i>
-                                        </a>
-                                        <a class="btn btn-danger btn-sm" href="{% url 'delete-member' member.id %}">
-                                            <i class="material-icons">delete</i>
-                                        </a>
+        {% for member in all_members %}
+                {% if not member.is_superuser %}
+                    {% if member == user_member %}
+                        <div class="col-md-4 py-4">
+                            <div class="card row gx-0 gy-0">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+                                        <div>
+                                            <a class="btn btn-info btn-sm" href="{% url 'update-member' member.id %}"><i
+                                                    class="material-icons">update</i></a>
+                                            <a class="btn btn-danger btn-sm" href="{% url 'delete-member' member.id %}"><i
+                                                    class="material-icons">delete</i></a>
+                                        </div>
                                     </div>
+                                    <p>Email adress: {{ member.email }}</p>
+                                    <p>Phone number: {{ member.phone_number }}</p>
+                                    <p>Status: {{ member.type }}</p>
+                                    <p>Age: {{ member.age }}</p>
                                 </div>
-                                <p>Phone number: {{ member.phone_number }}</p>
-                                <p>Status: {{ member.type }}</p>
-                                <p>Family: {{ family.name }}</p>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% endfor %}
+                    {% endif %}
+                {% endif %}
+        {% endfor %}
         </div>
     </div>
+
 {% endblock %}
