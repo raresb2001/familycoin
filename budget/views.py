@@ -24,7 +24,14 @@ class DashboardTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/main.html'
 
     def get_context_data(self, **kwargs):
+        """
+            Overrides the method to provide context data for rendering the template.
+
+            Returns:
+                dict: A dictionary containing context data.
+        """
         context = super().get_context_data(**kwargs)
+
 
         before = int(self.request.GET.get('before', 0))
         current_date = timezone.now().date()
@@ -123,7 +130,7 @@ class IncomeListView(LoginRequiredMixin, ListView):
     context_object_name = 'all_income'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs) # This line calls the get_context_data method of the base class(ListView) and retrieves the existing context from there.
         context['familymember'] = self.request.user
         return context
 
@@ -182,7 +189,7 @@ class CustomLoginView(LoginView):
         error_message = 'Incorrect username or password. Please try again.'
         return render(self.request, self.template_name, {'error_message': error_message, 'form': form})
 
-
+#This function is used to generate a list of labels representing a range of dates, starting from a given start date and spanning over a specified time interval.
 def get_labels(start, delta):
     result = []
     now = start
@@ -216,6 +223,7 @@ def get_average_budget(labels, request):
 def generate_bar_chart(labels, before, request):
     budget_value = get_values(labels, request)
     budget_value2 = get_average_budget(labels, request)
+    # Convert labels to strings for rendering
     labels = [str(l) for l in labels]
     return {
         'labels': labels,
@@ -246,7 +254,7 @@ def get_average_category(current_date, request, filter_year=False, filter_month=
     categories = Category.objects.all()
     for category in categories:
         labels.append(category.name)
-        query = Q(category=category)
+        query = Q(category=category) # Define a query to filter incomes by category
         if filter_year:
             query = query & Q(date_time__year=current_date.year)
         if filter_month:
@@ -566,5 +574,3 @@ def family_monthly_expenses(request):
     total_expenses = monthly_incomes.filter(type='expense').aggregate(total=Sum('value'))['total'] or 0
 
     return render(request, 'dashboard/monthly_expenses.html', {'total_expenses': total_expenses})
-
-
